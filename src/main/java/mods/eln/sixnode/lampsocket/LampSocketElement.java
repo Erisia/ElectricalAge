@@ -1,10 +1,10 @@
 package mods.eln.sixnode.lampsocket;
 
 import mods.eln.Eln;
+import mods.eln.generic.GenericItemBlockUsingDamageDescriptor;
 import mods.eln.generic.GenericItemUsingDamageDescriptor;
 import mods.eln.i18n.I18N;
-import mods.eln.item.BrushDescriptor;
-import mods.eln.item.LampDescriptor;
+import mods.eln.item.*;
 import mods.eln.misc.Direction;
 import mods.eln.misc.LRDU;
 import mods.eln.misc.Utils;
@@ -26,6 +26,9 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.world.WorldSettings;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,7 +36,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LampSocketElement extends SixNodeElement {
+public class LampSocketElement extends SixNodeElement implements IConfigurable {
 
     LampSocketDescriptor socketDescriptor = null;
 
@@ -182,7 +185,7 @@ public class LampSocketElement extends SixNodeElement {
     }
 
     @Override
-    public ElectricalLoad getElectricalLoad(LRDU lrdu) {
+    public ElectricalLoad getElectricalLoad(LRDU lrdu, int mask) {
         if (acceptingInventory.getInventory().getStackInSlot(LampSocketContainer.cableSlotId) == null) return null;
         if (poweredByLampSupply) return null;
 
@@ -191,7 +194,7 @@ public class LampSocketElement extends SixNodeElement {
     }
 
     @Override
-    public ThermalLoad getThermalLoad(LRDU lrdu) {
+    public ThermalLoad getThermalLoad(LRDU lrdu, int mask) {
         return null;
     }
 
@@ -330,5 +333,32 @@ public class LampSocketElement extends SixNodeElement {
             isConnectedToLampSupply = value;
             needPublish();
         }
+    }
+
+    @Override
+    public void readConfigTool(NBTTagCompound compound, EntityPlayer invoker) {
+        if(compound.hasKey("powerChannels")) {
+            String newChannel = compound.getTagList("powerChannels", 8).getStringTagAt(0);
+            if(newChannel != null && newChannel != "") {
+                channel = newChannel;
+                needPublish();
+            }
+        }
+        if(ConfigCopyToolDescriptor.readGenDescriptor(compound, "lamp", getInventory(), 0, invoker))
+            needPublish();
+        if(ConfigCopyToolDescriptor.readCableType(compound, getInventory(), 1, invoker))
+            needPublish();
+    }
+
+    @Override
+    public void writeConfigTool(NBTTagCompound compound, EntityPlayer invoker) {
+        NBTTagList list = new NBTTagList();
+        list.appendTag(new NBTTagString(channel));
+        compound.setTag("powerChannels", list);
+        IInventory inv = getInventory();
+        ItemStack lampStack = inv.getStackInSlot(0);
+        ConfigCopyToolDescriptor.writeGenDescriptor(compound, "lamp", lampStack);
+        ItemStack cableStack = inv.getStackInSlot(1);
+        ConfigCopyToolDescriptor.writeCableType(compound, cableStack);
     }
 }

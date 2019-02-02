@@ -1,6 +1,8 @@
 package mods.eln.sixnode.electricalmath;
 
 import mods.eln.i18n.I18N;
+import mods.eln.item.ConfigCopyToolDescriptor;
+import mods.eln.item.IConfigurable;
 import mods.eln.misc.Direction;
 import mods.eln.misc.LRDU;
 import mods.eln.misc.Utils;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ElectricalMathElement extends SixNodeElement {
+public class ElectricalMathElement extends SixNodeElement implements IConfigurable {
 
     NbtElectricalGateOutput gateOutput = new NbtElectricalGateOutput("gateOutput");
     NbtElectricalGateOutputProcess gateOutputProcess = new NbtElectricalGateOutputProcess("gateOutputProcess", gateOutput);
@@ -143,7 +145,7 @@ public class ElectricalMathElement extends SixNodeElement {
     }
 
     @Override
-    public ElectricalLoad getElectricalLoad(LRDU lrdu) {
+    public ElectricalLoad getElectricalLoad(LRDU lrdu, int mask) {
         if (lrdu == front) return gateOutput;
         if (lrdu == front.left() && sideConnectionEnable[2]) return gateInput[2];
         if (lrdu == front.inverse() && sideConnectionEnable[1]) return gateInput[1];
@@ -152,7 +154,7 @@ public class ElectricalMathElement extends SixNodeElement {
     }
 
     @Override
-    public ThermalLoad getThermalLoad(LRDU lrdu) {
+    public ThermalLoad getThermalLoad(LRDU lrdu, int mask) {
         return null;
     }
 
@@ -265,5 +267,22 @@ public class ElectricalMathElement extends SixNodeElement {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void readConfigTool(NBTTagCompound compound, EntityPlayer invoker) {
+        if(compound.hasKey("expression")) {
+            preProcessEquation(compound.getString("expression"));
+            reconnect();
+        }
+        if(ConfigCopyToolDescriptor.readVanillaStack(compound, "redstone", inventory, 0, invoker)) {
+            checkRedstone();
+        }
+    }
+
+    @Override
+    public void writeConfigTool(NBTTagCompound compound, EntityPlayer invoker) {
+        compound.setString("expression", expression);
+        ConfigCopyToolDescriptor.writeVanillaStack(compound, "redstone", inventory.getStackInSlot(0));
     }
 }

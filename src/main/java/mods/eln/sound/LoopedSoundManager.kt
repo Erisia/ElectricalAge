@@ -46,7 +46,6 @@ class LoopedSoundManager(val updateInterval: Float = 0.5f) {
                     }
                 }
             }
-
             remaining = updateInterval
         }
     }
