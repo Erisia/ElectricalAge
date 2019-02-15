@@ -1,11 +1,5 @@
 # Minecraft Mod - Codename : ELN
 
-Electrical Age (ELN) is a Minecraft Mod offering the ability to perform large-scale in-game electrical simulations.
-
-Look at the official project website [electrical-age.net](https://electrical-age.net/) and [the Wiki](http://wiki.electrical-age.net/) to get general information.
-
-This is a fork of Electrical Age, maintained by Jared Dunbar (jrddunbr) and Graham Nothup (Grissess), with the intent to add features and push for active development, which is incorporated back into the main distribution as they see fit.
-
 ## How to get started
 
 **ElectricalAge is Minecraft 1.7.10 compatible only. Forge is needed.**
@@ -95,7 +89,7 @@ Languages:
 TO BE UPDATED
 
 - **bomdia** (it_IT)
-- **Ahtsm** (zh_CN)
+- **KLsz, aneBlack and Ahtsm** (zh_CN)
 - **dcbrwn** (ru_RU)
 - **XxCoolGamesxX** (es_ES - deprecated)
 
@@ -125,4 +119,7 @@ Some graphics are public domain. These are:
 - src/main/resources/assets/eln/textures/blocks/smallrotatingsolarpanel.png
 - src/main/resources/assets/eln/textures/blocks/2x3rotatingsolarpanel.png
 
-![logo](https://raw.githubusercontent.com/jrddunbr/electrical-age.github.io/master/assets/favicon.ico)
+![logo](https://raw.githubusercontent.com/Electrical-Age/electrical-age.github.io/master/assets/favicon.ico)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FElectrical-Age%2FElectricalAge.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FElectrical-Age%2FElectricalAge?ref=badge_large)
