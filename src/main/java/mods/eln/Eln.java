@@ -311,8 +311,7 @@ public class Eln {
     public double fuelHeatFurnacePowerFactor = 1;
     public int autominerRange = 10;
 
-    public boolean killMonstersAroundLamps;
-    public int killMonstersAroundLampsRange;
+    public int blockMonstersAroundLampsRange;
 
     public int maxReplicators = 100;
 
@@ -331,6 +330,7 @@ public class Eln {
 
     public static double maxSoundDistance = 16;
     private double cablePowerFactor;
+    private int lampMonsterBlockRange = 8;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -409,6 +409,7 @@ public class Eln {
         fuelGeneratorPowerFactor = config.get("balancing", "fuelGeneratorPowerFactor", 1).getDouble(1);
         fuelHeatFurnacePowerFactor = config.get("balancing", "fuelHeatFurnacePowerFactor", 1.0).getDouble();
         autominerRange = config.get("balancing", "autominerRange", 10, "Maximum horizontal distance from autominer that will be mined").getInt(10);
+        lampMonsterBlockRange = config.get("balancing", "lampMonsterBlockRange", 8, "Maximum distance for which lamps block monster spawning", 0, 32768).getInt();
 
         Other.ElnToIc2ConversionRatio = config.get("balancing", "ElnToIndustrialCraftConversionRatio", 1.0 / 3.0).getDouble(1.0 / 3.0);
         Other.ElnToOcConversionRatio = config.get("balancing", "ElnToOpenComputerConversionRatio", 1.0 / 3.0 / 2.5).getDouble(1.0 / 3.0 / 2.5);
@@ -426,9 +427,8 @@ public class Eln {
         replicatorPop = config.get("entity", "replicatorPop", true).getBoolean(true);
         ReplicatorPopProcess.popPerSecondPerPlayer = config.get("entity", "replicatorPopWhenThunderPerSecond", 1.0 / 120).getDouble(1.0 / 120);
         replicatorRegistrationId = config.get("entity", "replicatorId", -1).getInt(-1);
-        killMonstersAroundLamps = config.get("entity", "killMonstersAroundLamps", true).getBoolean(true);
-        killMonstersAroundLampsRange = config.get("entity", "killMonstersAroundLampsRange", 9).getInt(9);
         maxReplicators = config.get("entity", "maxReplicators", 100).getInt(100);
+        blockMonstersAroundLampsRange = config.get("entity", "blockMonstersAroundLampsRange", 12).getInt(12);
 
         forceOreRegen = config.get("mapGenerate", "forceOreRegen", false).getBoolean(false);
         genCopper = config.get("mapGenerate", "copper", true).getBoolean(true);
