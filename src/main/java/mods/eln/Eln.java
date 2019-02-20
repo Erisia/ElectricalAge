@@ -3097,7 +3097,7 @@ public class Eln {
             name = TR_NAME(Type.NONE, "200V Macerator");
 
             MaceratorDescriptor desc = new MaceratorDescriptor(name,
-                "maceratorb", MVU, 400,// double nominalU,double nominalP,
+                "maceratorb", MVU, 2000,// double nominalU,double nominalP,
                 MVU * 1.25,// double maximalU,
                 new ThermalLoadInitializer(80, -100, 10, 100000.0),// thermal,
                 meduimVoltageCableDescriptor,// ElectricalCableDescriptor
@@ -3165,7 +3165,7 @@ public class Eln {
             PlateMachineDescriptor desc = new PlateMachineDescriptor(
                 name,// String name,
                 obj.getObj("platemachineb"),
-                MVU, 400,// double nominalU,double nominalP,
+                MVU, 2000,// double nominalU,double nominalP,
                 MVU * 1.25,// double maximalU,
                 new ThermalLoadInitializer(80, -100, 10, 100000.0),// thermal,
                 meduimVoltageCableDescriptor,// ElectricalCableDescriptor
@@ -3225,7 +3225,7 @@ public class Eln {
             CompressorDescriptor desc = new CompressorDescriptor(
                 name,// String name,
                 obj.getObj("compressorb"),
-                MVU, 400,// double nominalU,double nominalP,
+                MVU, 2000,// double nominalU,double nominalP,
                 MVU * 1.25,// double maximalU,
                 new ThermalLoadInitializer(80, -100, 10, 100000.0),// thermal,
                 meduimVoltageCableDescriptor,// ElectricalCableDescriptor
@@ -3269,7 +3269,7 @@ public class Eln {
             MagnetizerDescriptor desc = new MagnetizerDescriptor(
                 name,// String name,
                 obj.getObj("magnetizerb"),
-                MVU, 400,// double nominalU,double nominalP,
+                MVU, 2000,// double nominalU,double nominalP,
                 MVU * 1.25,// double maximalU,
                 new ThermalLoadInitializer(80, -100, 10, 100000.0),// thermal,
                 meduimVoltageCableDescriptor,// ElectricalCableDescriptor
